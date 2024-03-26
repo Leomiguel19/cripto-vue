@@ -14,6 +14,7 @@
     moneda: '',
     cripto: ''
   })
+  const cotizacion = ref({});
 
   onMounted(() => {
     const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=USD';
@@ -36,7 +37,11 @@
   const obtenerCotizacion = async () => {
     const { moneda, cripto} = cotizar;
     const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cripto}&tsyms=${moneda}`;
-    console.log(url);
+
+    const respuesta = await fetch(url);
+    const data = await respuesta.json();
+
+    cotizacion.value = data.DISPLAY[cripto][moneda];
   }
 </script>
 
