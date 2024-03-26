@@ -3,8 +3,7 @@
   import Alerta from './components/Alerta.vue'
 
   const monedas = ref([
-      { codigo: 'USD', texto: 'Dolar de Estados Unidos'},
-      // { codigo: 'MXN', texto: 'Peso Mexicano'},
+      { codigo: 'USD', texto: 'Dolar'},
       { codigo: 'EUR', texto: 'Euro'},
       { codigo: 'GBP', texto: 'Libra Esterlina'},
   ]);
@@ -31,7 +30,13 @@
     }
 
     error.value = '';
-    console.log('Cotizando');
+    obtenerCotizacion();
+  }
+
+  const obtenerCotizacion = async () => {
+    const { moneda, cripto} = cotizar;
+    const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cripto}&tsyms=${moneda}`;
+    console.log(url);
   }
 </script>
 
