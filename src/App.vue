@@ -1,5 +1,5 @@
 <script setup>
-  import {ref, onMounted, reactive} from 'vue';
+  import {ref, onMounted, reactive, computed} from 'vue';
   import Alerta from './components/Alerta.vue'
 
   const monedas = ref([
@@ -43,6 +43,10 @@
 
     cotizacion.value = data.DISPLAY[cripto][moneda];
   }
+
+  const mostrarCotizacion = computed(() => {
+    return Object.values(cotizacion.value).length > 0;
+  })
 </script>
 
 <template>
@@ -94,7 +98,10 @@
         <input type="submit" value="Cotizar">
       </form>
 
-      <div class="contenedor-resultado">
+      <div 
+        class="contenedor-resultado"
+        v-if="mostrarCotizacion"
+      >
         <h2>Cotizacion</h2>
 
         <div class="resultado">
