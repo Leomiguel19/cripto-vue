@@ -1,5 +1,5 @@
 <script setup>
-  import {ref, onMounted} from 'vue';
+  import {ref, onMounted, reactive} from 'vue';
 
   const monedas = ref([
       { codigo: 'USD', texto: 'Dolar de Estados Unidos'},
@@ -9,6 +9,10 @@
   ]);
 
   const criptomonedas = ref([]);
+  const cotizar = reactive({
+    moneda: '',
+    cripto: ''
+  })
 
   onMounted(() => {
     const url = 'https://min-api.cryptocompare.com/data/top/mktcapfull?limit=20&tsym=USD';
@@ -26,7 +30,10 @@
       <form class="formulario">
         <div class="campo">
           <label for="moneda">Moneda:</label>
-          <select id="moneda">
+          <select 
+            id="moneda"
+            v-model="cotizar.moneda"
+          >
             <option value="">-- Selecciona --</option>
             <option 
               v-for="moneda in monedas" 
@@ -39,7 +46,10 @@
 
         <div class="campo">
           <label for="cripto">Criptomoneda:</label>
-          <select id="cripto">
+          <select 
+            id="cripto"
+            v-model="cotizar.cripto"
+          >
             <option value="">-- Selecciona --</option>
             <option 
               v-for="criptomoneda in criptomonedas" 
